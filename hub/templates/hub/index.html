@@ -1,0 +1,10 @@
+<ul>
+	{{title}}
+  {% for key, values in context.items %}
+  	<li>values.0</li>
+    {% if key != 'n' %}
+      <br/>
+      <li>{{ key }}: {{ values}}</li>
+      {% endif %}
+    {% endfor %}
+</ul>

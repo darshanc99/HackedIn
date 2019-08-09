@@ -1,0 +1,186 @@
+<!-- Recreation of a tweet -->
+<html>
+  <head>
+    <title>Networks</title>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+  </head>
+  <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <!-- Navbar content -->
+        <a class="navbar-brand" href="#">HackedIn</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+              <a class="nav-link" href="#">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">TechNews</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Q&A</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Apply
+              </a>
+              <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" href="#">Jobs</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Internships</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Collab</a>
+              </div>
+            </li>
+          </ul>
+          <ul class="navbar-nav ml-auto">
+            <li style="color : white">Hello Username</li>
+          </ul>
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
+        </div>
+    </nav>
+    <div class="main-container">
+      <div class="container">
+        <div class="tweet-card">
+          <img class="avatar" src="https://pbs.twimg.com/profile_images/1122210437695725574/wPB3Jrkt_400x400.png">
+
+          <div class="content">
+            <div class="author">
+              <a href="https://twitter.com/rynmdk" class="twitter-name" target="_blank">Ryan Maddock</a>
+              <span class="twitter-handle"><a href="#"></a>@rynmdk</span>
+              <a href="#" class="twitter-time">1 Second Ago</a>
+            </div>
+
+            <p class="tweet">
+              Follow me on twitter
+            </p>
+
+            <ul class="actions">
+              <li>
+                <button>
+                  <span class="fas fa-reply"></span>
+                </button>
+              </li>
+              <li>
+                <button>
+                  <span class="fas fa-retweet"></span>
+                </button>
+              </li>
+              <li>
+                <button>
+                  <span class="fas fa-heart"></span>
+                </button>
+              </li>
+              <li>
+                <button>
+                  <span>...</span>
+                </button>
+              </li>
+            </ul>
+
+          </div>
+        </div>
+      </div> 
+    </div>
+
+    <style>
+      * {
+      padding: 0;
+      margin: 0;
+      font-family: Helvetica, Sans-Serif;
+    }
+
+    .container {
+      margin: 20px 50%;
+      border: 1px #1da1f2 solid;
+      width: 50ch;
+      padding: 10px;
+      border-radius: 10px;
+      transform: translatex(-50%);
+    }
+
+    .tweet-card {
+      display: flex;
+      align-items: flex-start;
+    }
+
+    .author {
+      padding-bottom: 0.5em;
+    }
+
+    .tweet {
+      padding-bottom: 1em;
+    }
+
+    .twitter-name {
+      font-weight: bold;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .twitter-name:hover {
+      color: #1da1f2;  
+    }
+
+    .twitter-time {
+      text-decoration: none;
+    }
+
+    .twitter-time:hover {
+      text-decoration: underline;
+      color: #1da1f2; 
+    }
+
+    .twitter-handle,
+    .twitter-time {
+      font-size: 14px;
+      color: grey;
+    }
+
+    .twitter-handle::after {
+      content: " \00b7";  
+    }
+
+    .tweet::after {
+      content: "\263A";
+    }
+
+    .avatar {
+      width: 48px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+
+    .actions {
+      display: flex;
+    }
+
+    .actions li {
+      list-style: none;
+      margin-right: 50px;
+    }
+
+    button {
+      border: none;
+      color: #657786;
+      cursor: pointer;
+      background: none;
+      font-size: 16px;
+    }
+
+    button:hover {
+      color: #1da1f2;
+    }
+    </style>   
+  </body>
+</html>

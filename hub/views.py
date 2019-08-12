@@ -4,6 +4,7 @@ from django.http import HttpResponse
 from django.template import loader
 import requests
 import ast
+from .models import Accomplishment
 
 def news(request):
 	#return HttpResponse("This is our latest News page")
@@ -28,3 +29,9 @@ def news(request):
 	#print(a)
 	template = loader.get_template('hub/news.html')
 	return HttpResponse(template.render(a,request))
+
+def network(request):
+	context = {
+	'accomplishments' : Accomplishment.objects.all()
+	}
+	return render(request,'hub/network.html',context)

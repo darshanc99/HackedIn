@@ -4,6 +4,8 @@ from django.conf.urls import url,include
 from . import views
 
 urlpatterns = [
-	#/hackedin/technews/
-	path('technews/',views.news,name='news'),
+	#/hackedin/
+	path('news/',views.news,name='news'),
+	#/hackedin/network/
+	path('',views.network,name='network'),
 ]

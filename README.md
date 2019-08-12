@@ -5,6 +5,6 @@
 
 
 ### Installation:
-- Windows User:
+- Windows User:<br/>
 -- p
 - Linux User:

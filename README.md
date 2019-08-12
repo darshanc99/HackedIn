@@ -6,9 +6,9 @@
 
 ### Installation:
 - Windows User:<br/>
--- python 3.7+
--- pip3.*
--- django==2.2.3 -> ```pip install django```
--- django-crispy-forms==1.7.2 -> ```pip install django-crispy-forms```
-- Linux User:
+-- python 3.7+<br/>
+-- pip3.*<br/>
+-- django==2.2.3 -> ```pip install django```<br/>
+-- django-crispy-forms==1.7.2 -> ```pip install django-crispy-forms```<br/>
+- Linux User:<br/>
 -- ```pip3 install -r requirements.txt```

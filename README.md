@@ -12,6 +12,6 @@
 -- pip3.*<br/>
 -- django==2.2.3 -> ```pip install django```<br/>
 -- django-crispy-forms==1.7.2 -> ```pip install django-crispy-forms```<br/>
--- pillow
+-- pillow==6.1.0 ->```pip install pillow```<br/>
 - Linux User:<br/>
 -- ```pip3 install -r requirements.txt```

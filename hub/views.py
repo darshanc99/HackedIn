@@ -1,5 +1,6 @@
 #Import Dependencies
 from django.shortcuts import render
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 import requests
@@ -30,6 +31,7 @@ def news(request):
 	template = loader.get_template('hub/news.html')
 	return HttpResponse(template.render(a,request))
 
+@login_required
 def network(request):
 	context = {
 	'accomplishments' : Accomplishment.objects.all()

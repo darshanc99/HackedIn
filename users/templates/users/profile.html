@@ -1,5 +1,3 @@
-
-
 <html>
 	<head>
 		<title>HackedIn Profile </title>
@@ -10,13 +8,15 @@
 	</head>
 {% extends 'hub/navbar.html' %}
 {% block body %}
-	<div class="content-selection">
-		<div class="media">
-			<div class="media-body">
-				<h2 class="account-heading">{{user.username}}</h2>
-				<p class="text-secondary">{{user.email}}</p>
-			</div>
-		</div>
+	<div class="container">
+		<div class="media border p-3">
+  <img src="{{user.profile.image.url}}" alt="{{user.username}}" class="mr-3 mt-3 rounded-circle" style="width:80px;" border="10">
+  <div class="media-body">
+    <h2 class="account-heading">{{user.username}}</h2>
+    <p class="text-secondary">{{user.email}}</p>
+  </div>
+</div>
 	</div>
+
 {% endblock %}
 </html>

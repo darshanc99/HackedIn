@@ -16,10 +16,11 @@ def news(request):
 	#Converting string list into list
 	a = ast.literal_eval(a)
 	lis = []
+	ses = requests.session()
 	for i in range(10):
 		url = "https://hacker-news.firebaseio.com/v0/item/"+str(a[i])+ ".json"
 		payload = "{}"
-		response = requests.request("GET", url, data=payload)
+		response = ses.request("GET", url, data=payload)
 		dict_response = response.json()
 		if 'url' in dict_response:
 			news = {'title': str(dict_response['title']), 'url': dict_response['url'], 'type': str(dict_response['type'])}

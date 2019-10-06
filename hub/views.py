@@ -28,7 +28,7 @@ def news(request):
 			lis.append(news)
 	print(lis)
 	a = {'my_list':lis}
-	#print(a)
+	print(a)
 	template = loader.get_template('hub/news.html')
 	return HttpResponse(template.render(a,request))
 

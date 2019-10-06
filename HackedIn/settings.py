@@ -20,6 +20,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'news.apps.NewsConfig',
     'homepage.apps.HomepageConfig',
     'hub.apps.HubConfig',
     'users.apps.UsersConfig',

@@ -15,6 +15,8 @@ urlpatterns = [
     path('register/',user_views.register,name='register'),
     #/community/
     path('community/',include('hub.urls'),name='home'),
+    #/news/
+    path('news/',include('news.urls'),name='news'),
     #/login/
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
     #/logout/

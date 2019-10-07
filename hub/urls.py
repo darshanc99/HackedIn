@@ -7,7 +7,8 @@ from .views import (
 	PostDetailView,
 	PostCreateView,
 	PostUpdateView,
-	PostDeleteView
+	PostDeleteView,
+	UserPostListView
 	)
 
 urlpatterns = [
@@ -21,4 +22,6 @@ urlpatterns = [
 	path('<int:pk>/update/',PostUpdateView.as_view(),name='network-update'),
 	#/community/<pk>/delete/
 	path('<int:pk>/delete/',PostDeleteView.as_view(),name='network-delete'),	
+	#/community/user/<username>
+	path('user/<str:username>',UserPostListView.as_view(),name='user-posts'),
 ]

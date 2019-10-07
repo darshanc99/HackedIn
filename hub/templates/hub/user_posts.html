@@ -11,9 +11,7 @@
 {% extends 'hub/navbar.html' %}
 {% block body %}
   <body >
-<div class="card">
-  <p class="card-header">Network Accomplishments</p>
-</div>
+<h1 class="mb-3">Posts by {{view.kwargs.username}} ({{page_obj.paginator.count}})</h1>
 {% for accomplishment in accomplishments %}
 <br/><br/>
 <div class="card">

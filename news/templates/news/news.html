@@ -8,20 +8,21 @@
 	</head>
 {% extends 'hub/navbar.html' %}
 {% block body %}
-	<body style="background-image : url('https://png.pngtree.com/thumb_back/fw800/background/20190221/ourmid/pngtree-tech-line-background-simple-technology-business-image_22774.jpg')">
+	<body style="background-image : url('https://media0.giphy.com/media/1pmatQ3LcP5XFYxSWF/source.gif')">
 <div class="card">
   <p class="card-header">Latest News</p>
  </div>
-<div>
+
   <p></p>
 {% for item in my_list %}
-  <div style="width:60%;min-width:720px;height:170px;border:solid;border-color: black;border-width:2px;border-radius:12px;margin-left:auto;margin-right:auto;margin-top:10px;background-image : url('https://img.freepik.com/free-vector/white-background-with-blue-tech-hexagon_1017-19366.jpg?size=626&ext=jpg');">
-	<br/><h5 class="card-title"><b>Title:</b> {{item.title}}</h5>
-    <p class="card-text"><b>News Type: {{item.type}}</b></p>
-    <a href="{{item.url}}" class="btn btn-primary" target="_blank">Click to View</a>
-    <br/>
- </div>
+ <div class="card w-75" style="margin-left:auto;margin-right: auto;">
+  <div class="card-body">
+    <h5 class="card-title">{{item.title}}</h5>
+    <p class="card-text">News Type: {{item.type}}</p>
+    <a href="{{item.url}}" class="btn btn-primary" target="_blank">Check out</a>
+  </div>
 </div>
+
 {%endfor%}
 
 </body>

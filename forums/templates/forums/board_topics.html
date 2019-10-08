@@ -1,0 +1,49 @@
+{% extends 'forums/base.html' %}
+
+{% block title %}{{ board.name }} {{ block.super }}{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'home' %}">Boards</a>
+</li>
+<li class="breadcrumb-item active">
+    {{ board.name }}
+</li>
+{% endblock %}
+
+{% block content %}
+<div class="mb-4">
+    <a href="{% url 'new_topic' board.pk %}" class="btn btn-primary">
+        New Topic
+    </a>
+</div>
+<table class="table">
+    <thead class="thead-dark">
+        <tr>
+            <th>Topic</th>
+            <th>Started by</th>
+            <th>Replies</th>
+            <th>Views</th>
+            <th>Last Update at</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for topic in topics %}
+            <tr>
+                <td>
+                    <a href="{{ topic.get_absolute_url }}">
+                        {{ topic.subject }}
+                    </a>
+                </td>
+                <td>{{ topic.starter.username }}</td>
+                <td class="align-middle">{{ topic.replies }}</td>
+                <td class="align-middle">{{ topic.views }}</td>
+                <td>{{ topic.last_updated }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% include 'forums/includes/pagination.html' %}
+
+{% endblock %}

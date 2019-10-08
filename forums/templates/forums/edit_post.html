@@ -1,0 +1,35 @@
+{% extends 'forums/base.html' %}
+
+{% block title %}Edit post{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'home' %}">Boards</a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{% url 'board_topics' post.topic.board.pk %}">
+        {{ post.topic.board.name }}
+    </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}">
+        {{ post }}
+    </a>
+</li>
+<li class="breadcrumb-item active">
+    Edit
+</li>
+{% endblock %}
+
+{% block content %}
+{% load crispy_forms_tags %}
+<form method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <button type="submit" class="btn btn-success">Save changes</button>
+    <a href="{% url 'topic_posts' post.topic.board.pk post.topic.pk %}"
+       class="btn btn-danger" role="button">
+        Cancel
+    </a>
+</form>
+{% endblock %}

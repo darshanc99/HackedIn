@@ -1,0 +1,30 @@
+{% extends 'forums/base.html' %}
+
+{% block title %}{{ topic.subject }}{% endblock %}
+
+{% block breadcrumb %}
+<li class="breadcrumb-item">
+    <a href="{% url 'home' %}">Boards</a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{% url 'board_topics' topic.board.pk %}">
+        {{ topic.board.name }}
+    </a>
+</li>
+<li class="breadcrumb-item active">
+    {{ topic.subject }}
+</li>
+{% endblock %}
+
+{% block content %}
+<div>
+    <a href="{% url 'reply_topic' topic.board.pk topic.pk %}" class="btn btn-primary" role="button">
+        Reply
+    </a>
+</div>
+
+{% include 'forums/includes/all_topic_posts.html' %}
+
+{% include 'forums/includes/pagination.html' %}
+
+{% endblock %}

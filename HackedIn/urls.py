@@ -25,6 +25,8 @@ urlpatterns = [
     path('profile/',user_views.profile,name='profile'),
     #/
     path('',include('homepage.urls')),
+    #/forums/
+    path('forums/',include('forums.urls')),
 ]
 
 if settings.DEBUG:

@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block stylesheet %}
+<link rel="stylesheet" href="{% static 'forums/css/users.css' %}">
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h1 class="logo text-center my-4">
+        <a href="{% url 'home' %}">Forums</a>
+    </h1>
+    {% block content %}
+    {% endblock %}
+</div>
+{% endblock %}

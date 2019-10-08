@@ -1,0 +1,16 @@
+body {
+    background-image: url(../img/vertical-waves.png);
+}
+
+.logo {
+    font-family: 'Rock Salt', cursive;
+}
+
+.logo a {
+    color: rgba(0,0,0,1);
+}
+
+.logo a:hover,
+.logo a:active {
+    text-decoration: none;
+}

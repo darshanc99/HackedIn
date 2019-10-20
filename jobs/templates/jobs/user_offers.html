@@ -1,0 +1,67 @@
+{% extends "jobs/user_profile.html" %}
+
+{% block style %}
+{{ block.super }}
+
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+{% if offers %}
+    <div class="row">
+        <div class="col-sm-4 col-lg-3">
+        </div>
+        <div class="col-sm-8 col-lg-9" style="text-align: center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if offers.has_previous %}
+                    <a href="?page={{ offers.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ offers.number }} of {{ offers.paginator.num_pages }}.
+                    </span>
+
+                    {% if offers.has_next %}
+                        <a href="?page={{ offers.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+{% block user_view %}
+    <div class="row">
+        <div class="[ col-xs-12 col-sm-offset-0 col-sm-10 ]">
+            {% if request.user.is_authenticated %}
+                {% if offers %}
+                    <h1>Your Job Offers</h1>
+                    <br>
+                    <ul class="event-list">
+                        {% for offer in offers %}
+                            <li>
+                                <img alt="avatar" src="{{ offer.avatar.url }}" />
+                                <div class="info">
+                                    <h2 class="title"><a href="{% url 'jobs:offer_detail' offer.id %}">{{ offer.title }}</a></h2>
+                                    <br>
+                                    <p class="desc">{{ offer.companyName }}</p>
+                                    <br>
+                                    <span class="desc"><i class="glyphicon glyphicon-calendar"></i> Added: {{ offer.created_date }}</span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h1>There is no offers.</h1>
+                {% endif %}
+            {% else %}
+                <h1>You're not logged in.</h1>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

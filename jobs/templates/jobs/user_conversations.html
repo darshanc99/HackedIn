@@ -1,0 +1,45 @@
+{% extends "jobs/user_profile.html" %}
+
+{% block style %}
+{{ block.super }}
+
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+{% if request.user.is_authenticated %}
+  <div class="row">
+    <div class="col-sm-5 col-lg-4">
+      <nav class="navbar navbar-default navbar-fixed-side" style="text-align: center;">
+          <p style="padding-top: 10px; font-size: 16px;">Conversations:</p>
+          {% for conversation in conversations %}
+              <div class="list-group" style="margin-bottom: 1px;">
+                  <div  class="list-group-item clearfix">
+                    <a href="{% url 'jobs:conversation' conversation.id %}">
+                      <span class="glyphicon glyphicon-comment pull-left"></span>
+                      {{ conversation.title }}
+                    </a>
+                      <span class="pull-right">
+                        <a href="{% url 'jobs:conversation_delete' conversation.id %}" class="btn btn-xs btn-warning">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                      </span>
+                  </div>
+              </div>
+          {% endfor %}
+      </nav>
+    </div>
+      <div class="col-sm-7 col-lg-8">
+        {% block user_conversation %}
+
+        {% endblock %}
+    </div>
+  </div>
+
+{% else %}
+    <h1>You're not logged in.</h1>
+      <a href="{% url 'auth_login' %}">Login</a>
+{% endif %}
+</div>
+{% endblock %}

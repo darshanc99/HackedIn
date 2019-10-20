@@ -1,0 +1,41 @@
+{% extends "jobs/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+        {% if request.user.is_authenticated %}
+            <div class="row">
+              <div class="col-md-8 col-sm-offset-2">
+
+                  <h1>Add Job Offer</h1>
+
+                  <b style="color: red;">{{ title }}</b>
+
+                <form id="room_form" method="post" action=""
+                      enctype="multipart/form-data">
+                    {{ offerForm|crispy }}
+                    <br>
+                    <h1>What application for the job should contains?</h1>
+                    {{ requirements|crispy }}
+                    {% csrf_token %}
+
+                    <br>
+                    <div style="text-align:center;">
+                    <input class="btn btn-lg btn-primary" type="submit" name="submit" value="Submit" />
+                    </div>
+                    <br>
+                </form>
+
+              </div>
+            </div>
+
+            {% else %}
+            <div class="row">
+              <div class="col-md-6 col-sm-offset-3">
+                  <h1>Only registered users can see this page</h1>
+                  <a href="{% url 'login' %}">Login</a>
+              </div>
+            </div>
+        {% endif %}
+
+{% endblock %}

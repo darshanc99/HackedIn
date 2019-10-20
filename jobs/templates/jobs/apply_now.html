@@ -1,0 +1,45 @@
+{% extends "jobs/base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+        {% if request.user.is_authenticated and request.user != offer.user %}
+            <div class="row">
+              <div class="col-md-8 col-sm-offset-2">
+
+                  <h1>You're applying for {{ offer.title }}</h1>
+
+                  <b style="color: red;">{{ title }}</b>
+
+                <form id="room_form" method="post" action=""
+                      enctype="multipart/form-data">
+                    {% for field in applyForm %}
+                            {{ field|as_crispy_field }}
+                    {% endfor %}
+                    {% csrf_token %}
+                    <br>
+                    <div style="text-align:center;">
+                    <input class="btn btn-lg btn-primary" type="submit" name="submit" value="Submit" />
+                    </div>
+                    <br>
+                </form>
+
+              </div>
+            </div>
+            {% elif request.user == offer.user %}
+                <div class="row">
+              <div class="col-md-6 col-sm-offset-3">
+                  <h1>This is your offer dude. Stop smoking weed!</h1>
+              </div>
+            </div>
+
+            {% else %}
+            <div class="row">
+              <div class="col-md-6 col-sm-offset-3">
+                  <h1>Only registered users can see this page</h1>
+                  <a href="{% url 'login' %}">Login</a>
+              </div>
+            </div>
+        {% endif %}
+
+{% endblock %}

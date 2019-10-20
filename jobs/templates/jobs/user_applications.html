@@ -1,0 +1,81 @@
+{% extends "jobs/user_profile.html" %}
+
+{% block style %}
+{{ block.super }}
+
+.info-bottom-area
+{
+    background-color: rgb(245, 245, 245);
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+{% if applications %}
+    <div class="row">
+        <div class="col-sm-4 col-lg-3">
+        </div>
+        <div class="col-sm-8 col-lg-9" style="text-align: center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if applications.has_previous %}
+                    <a href="?page={{ applications.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ applications.number }} of {{ applications.paginator.num_pages }}.
+                    </span>
+
+                    {% if applications.has_next %}
+                        <a href="?page={{ applications.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block user_view %}
+
+    <div class="row">
+        <div class="[ col-xs-12 col-sm-offset-0 col-sm-10 ]">
+            {% if request.user.is_authenticated %}
+                {% if applications %}
+                    <h1>{{ title }}</h1>
+                    <br>
+                    <ul class="event-list">
+                        {% for application in applications %}
+                            <li>
+                                <img alt="avatar" src="{{ application.job_offer.avatar.url }}" />
+                                <div class="info">
+                                    <h2 class="title">{{ application.job_offer.title }}</h2>
+                                    <br>
+                                    <p class="desc">{{ application.job_offer.companyName }}</p>
+                                    <br>
+                                    <span class="desc"><i class="glyphicon glyphicon-calendar"></i> Sent: {{ application.created_date }}</span>
+                                </div>
+                                <div class="info-bottom-area">
+                                    <a class="btn btn-lg btn-primary" href="{% url 'jobs:application_detail' application.id %}" role="button">View Application</a>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h1>There is no applications.</h1>
+                {% endif %}
+            {% else %}
+                <h1>You're not logged in.</h1>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}
+

@@ -28,7 +28,7 @@ urlpatterns = [
     #/forums/
     path('forums/',include('forums.urls')),
     #/job/
-    #path('job/',include('jobs.urls')),
+    path('jobs/',include('jobs.urls')),
 ]
 
 if settings.DEBUG:

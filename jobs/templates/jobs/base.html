@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <script src="https://use.fontawesome.com/1598e5e6aa.js"></script>
+
+
+    {% load staticfiles %}
+    <meta charset="UTF-8">
+    <title>{% block title %} Jobs {% endblock %}</title>
+    {% include 'jobs/bootstrap_css.html' %}
+
+    {% block head %}
+
+    {% endblock %}
+
+    <style>
+        {% block style %}
+
+        {% endblock %}
+    </style>
+
+
+</head>
+<body>
+
+    {% include 'jobs/navbar.html' %}
+
+    <div class="container">
+
+            {% block jumbotron_content %}
+
+            {% endblock %}
+
+            <div id="content">
+                {% block content %}
+
+                {% endblock %}
+            </div>
+
+
+
+    </div>
+</body>
+</html>

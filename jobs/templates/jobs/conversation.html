@@ -1,0 +1,82 @@
+{% extends 'jobs/user_conversations.html' %}
+
+{% block style %}
+{{ block.super }}
+
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+{% endblock %}
+
+{% block user_conversation %}
+<div style="text-align: center;">
+    <h2>{{ conversation.title }}</h2>
+</div>
+
+{% if messages %}
+    <div class="row">
+        <div class="col-md-12 col-lg-12">
+            <div class="chat_list">
+                <ul class="list-group">
+                    {% for message in messages %}
+                        <li class="list-group-item">
+                        <small class="pull-right text-muted">{{ message.created_date }}</small>
+                        <div>
+                            <big class="list-group-item-heading text-muted text-primary">
+                                {% if request.user == message.user %}
+                                    You
+                                {% else %}
+                                    {{ message.user.username }}
+                                {% endif %}
+                            </big>
+                            <p class="list-group-item-text">
+                                {{ message.content }}
+                            </p>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12 col-lg-12" style="text-align: center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if messages.has_previous %}
+                    <a href="?page={{ messages.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ messages.number }} of {{ messages.paginator.num_pages }}.
+                    </span>
+
+                    {% if messages.has_next %}
+                        <a href="?page={{ messages.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+{% else %}
+    <h2>No messages.</h2>
+{% endif %}
+
+<div class="row">
+    <div class="col-md-12 col-lg-12">
+        <form method="POST">
+            {% csrf_token %}
+            <div class="controls">
+                <textarea name="content" class="col-md-12" placeholder="Your Message" rows="5"></textarea>
+            </div>
+
+            <div class="controls col-md-2 col-sm-offset-5">
+                <button id="contact-submit" type="submit" class="btn btn-primary input-medium pull-right">Send</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,96 @@
+{% extends 'jobs/base.html' %}
+
+{% block head %}
+    <link rel="stylesheet" type="text/css" href="/static/css/offer_detail.css">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="offer col-md-8 col-sm-offset-2">
+    <div class="row">
+        <div class="offer_image col-md-12 title">
+            <a> <img src="{{ offer.avatar.url }}"> </a>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-12">
+            {% for about in aboutUs %}
+            <p class="title">{{ about }}</p>
+            {% endfor %}
+        </div>
+
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 class="title">{{ offer.title }}</h1>
+            <div class="location">
+                <p><i class="fa fa-location-arrow" aria-hidden="true"></i> Location: {{ offer.location }}</p>
+                {% if offer.salary %}
+                    <p><i class="fa fa-money" aria-hidden="true"></i>  Salary: {{ offer.salary }}$</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="custom-list">
+            <p><strong>Requirements:</strong></p>
+            <ul>
+                {% for requirement in requirements %}
+                    <li>{{ requirement }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="custom-list">
+            <p><strong>Job Description:</strong></p>
+            <ul>
+                {% for job in jobDescription %}
+                    <li>{{ job }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="custom-list">
+            <p><strong>We Offer:</strong></p>
+            <ul>
+                {% for weOffer in whatWeOffer %}
+                    <li>{{ weOffer }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <br><br><br>
+</div>
+
+{% if request.user.is_authenticated and request.user != offer.user %}
+
+    <div class="row">
+        <div class="title col-md-4 col-sm-offset-4">
+            <a class="btn btn-lg btn-primary" href="{% url 'jobs:job_apply' offer.id %}" role="button">Apply Now!</a>
+        </div>
+    </div>
+
+{% elif request.user == offer.user %}
+
+    <div class="row">
+        <div class="title col-md-4 col-sm-offset-4">
+            <a class="btn btn-lg btn-primary" href="{% url 'jobs:offer_update' offer.id %}" role="button">Edit</a>
+            <a class="btn btn-lg btn-danger" href="{% url 'jobs:offer_delete' offer.id %}" role="button">Delete</a>
+        </div>
+    </div>
+
+{% else %}
+
+{% endif %}
+
+<br><br><br>
+
+{% endblock %}

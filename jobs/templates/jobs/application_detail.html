@@ -1,0 +1,109 @@
+{% extends 'jobs/base.html' %}
+{% load staticfiles %}
+
+{% block style %}
+img
+{
+    max-width: 180px;
+    max-height: auto;
+    padding: 5px;
+}
+
+h1
+{
+    color: #3B5998;
+}
+
+.application
+{
+    border-style: ridge;
+}
+{% endblock %}
+
+
+{% block content %}
+<div class="application col-md-8 col-sm-offset-2">
+    <div class="row">
+        <div class="col-md-8" style="padding-left: 2cm;">
+            <h1><strong>{{ application.name }} {{ application.surname }}</strong></h1>
+            {% if application.age %}
+            <p style="font-size: 18px;"><strong>Age: </strong> {{ application.age }}</p>
+            {% endif %}
+            <p style="font-size: 18px;"><strong>Email: </strong> {{ application.email }}</p>
+            {% if application.education %}
+            <p style="font-size: 18px;"><strong>Education: </strong> {{ application.education }}</p>
+            {% endif %}
+            {% if application.placeOfResidence %}
+            <p style="font-size: 18px;"><strong>Location: </strong> {{ application.placeOfResidence }}</p>
+            {% endif %}
+            {% if application.currentStatus %}
+            <p style="font-size: 18px;"><strong>Working Status: </strong> {{ application.currentStatus }}</p>
+            {% endif %}
+        </div>
+        <div class="col-md-4">
+            {% if application.picture %}
+                <a> <img src="{{ application.picture.url }}"> </a>
+            {% else %}
+                <a> <img src="{% static 'images/avatar.jpg' %}"> </a>
+            {% endif %}
+        </div>
+    </div>
+    <hr/>
+    {% if application.aboutYou %}
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 1cm;">
+            <h2 >About Me:</h2>
+            <p>{{ application.aboutYou }}</p>
+        </div>
+    </div>
+    <hr/>
+    {% endif %}
+
+    {% if application.experience %}
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 1cm;">
+            <h2 >My Experience:</h2>
+            <p>{{ application.experience }}</p>
+        </div>
+    </div>
+    <hr/>
+    {% endif %}
+
+    {% if languages %}
+    <div class="row">
+        <div style="padding-left: 1cm;">
+            <h2>Languages:</h2>
+            <ul>
+                {% for language in languages %}
+                    <li>{{ language }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    <hr/>
+    {% endif %}
+
+    {% if application.hobby %}
+    <div class="row">
+        <div class="col-md-12" style="padding-left: 1cm;">
+            <h2 >My Hobby:</h2>
+            <p>{{ application.hobby }}</p>
+        </div>
+    </div>
+    <hr/>
+    {% endif %}
+</div>
+
+{% if application.job_offer.user == request.user %}
+    <div class="row">
+        <div class="title col-md-4 col-sm-offset-4">
+            <a class="btn btn-lg btn-primary" href="{% url 'jobs:create_conversation' application.id %}" role="button">Contact</a>
+        </div>
+    </div>
+{% endif %}
+
+<div>
+    <br><br><br>
+</div>
+
+{% endblock %}

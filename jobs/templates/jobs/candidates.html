@@ -1,0 +1,89 @@
+{% extends "jobs/user_profile.html" %}
+{% load staticfiles %}
+
+{% block style %}
+{{ block.super }}
+
+
+.event-list > li > .info
+{
+    height: 180px;
+    text-align: center;
+}
+
+.event-list > li > img
+{
+    width: 170px;
+    height: 180px;
+}
+
+{% endblock %}
+
+{% block content %}
+{{ block.super }}
+
+{% if applications %}
+    <div class="row">
+        <div class="col-sm-4 col-lg-3">
+        </div>
+        <div class="col-sm-8 col-lg-9" style="text-align: center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if applications.has_previous %}
+                    <a href="?page={{ applications.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ applications.number }} of {{ applications.paginator.num_pages }}.
+                    </span>
+
+                    {% if applications.has_next %}
+                        <a href="?page={{ applications.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block user_view %}
+
+    <div class="row">
+        <div class="[ col-xs-12 col-sm-offset-0 col-sm-10 ]">
+            {% if request.user.is_authenticated %}
+                {% if applications %}
+                    <h1>{{ title }}</h1>
+                    <br>
+                    <ul class="event-list">
+                        {% for application in applications %}
+                            <li>
+                                {% if application.picture %}
+                                    <img alt="avatar" src="{{ application.picture.url }}" />
+                                {% else %}
+                                    <img alt="avatar" src="{% static 'images/avatar.jpg' %}" />
+                                {% endif %}
+                                <div class="info">
+                                    <h2 class="title">{{ application.name }} {{ application.surname }}</h2>
+                                    <p class="desc">{{ application.job_offer.title }}</p>
+                                    <span class="desc"><i class="glyphicon glyphicon-calendar"></i> Sent: {{ application.created_date }}</span>
+                                    <br>
+                                    <br>
+                                    <span class="info-btn"><a class="btn btn-lg btn-primary" href="{% url 'jobs:application_detail' application.id %}" role="button">View Application</a></span>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h1>There is no candidates.</h1>
+                {% endif %}
+            {% else %}
+                <h1>You're not logged in.</h1>
+                <a href="{% url 'login' %}">Login</a>
+            {% endif %}
+        </div>
+    </div>
+
+{% endblock %}

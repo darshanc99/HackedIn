@@ -1,0 +1,38 @@
+img
+{
+    max-width: 100%;
+    height: auto;
+    padding: 5px;
+}
+
+.offer
+{
+    border-style: ridge;
+}
+
+.custom-list
+{
+    padding-left: 1cm;
+}
+
+h1
+{
+    color: #ed8e01;
+}
+
+ul
+{
+    font-size: 13px;
+}
+
+.location
+{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.title
+{
+    text-align: center;
+}

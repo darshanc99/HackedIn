@@ -7,7 +7,6 @@ from users import views as user_views
 from django.conf.urls.static import static
 from users import views as user_views
 from django.conf import settings
-
 urlpatterns = [
 	#/admin/
     path('admin/', admin.site.urls),
@@ -23,6 +22,16 @@ urlpatterns = [
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     #/profile/
     path('profile/',user_views.profile,name='profile'),
+    #/profile/edit/
+    path('profile/edit/',user_views.edit,name='profile-edit'),
+    #/profile/applications/
+    path('profile/applications/',user_views.applications,name='applications'),
+    #/profile/offers/
+    path('profile/offers/',user_views.offers,name='joboffers'),
+    #/profile/candidates/
+    path('profile/candidates/',user_views.candidates,name='jobcandidates'),
+    #/profile/converstaions/
+    path('profile/converstaions/',user_views.user_conversations,name='converstaions'),
     #/
     path('',include('homepage.urls')),
     #/forums/

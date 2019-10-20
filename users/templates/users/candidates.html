@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <title>HackedIn Profile </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link href='https://fonts.googleapis.com/css?family=RobotoDraft' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"><style>
+    html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif;}
+    .w3-bar-block .w3-bar-item{padding:16px}
+    </style>
+    </head>
+{% extends 'hub/navbar.html' %}
+{% load static %}
+{% block body %}
+
+<nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
+  <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><h2><b>HackedIn</b></h2></a>
+  <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" 
+  class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
+  <a href="{% url 'profile' %}" class="w3-bar-item w3-button" ><i class="fa fa-star"></i> My Profile</a>
+  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"> <i class="fa fa-pencil"></i> Edit Profile</a>
+  
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>My Offers</a>
+  <a href="#" class="w3-bar-item w3-button"style="background-color:#D3D3D3"><i class="fa fa-user w3-margin-right"></i>
+Candidates</a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope w3-margin-right"></i>
+Messages</a>
+</nav>
+
+<!-- Overlay effect when opening the side navigation on small screens -->
+<div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Close Sidemenu" id="myOverlay"></div>
+
+<script>
+
+  function w3_open() {
+    document.getElementById("mySidebar").style.display = "block";
+    document.getElementById("myOverlay").style.display = "block";
+  }
+
+  function w3_close() {
+    document.getElementById("mySidebar").style.display = "none";
+    document.getElementById("myOverlay").style.display = "none";
+  }
+</script>
+
+<script>
+  var openTab = document.getElementById("firstTab");
+  openTab.click();
+</script>
+
+
+
+<!-- Page content -->
+<br/><br/><p></p>
+{% if applications %}
+    <div class="row">
+        <div class="col-sm-4 col-lg-3">
+        </div>
+        <div class="col-sm-8 col-lg-9" style="text-align: center;">
+            <div class="pagination">
+                <span class="step-links">
+                    {% if applications.has_previous %}
+                    <a href="?page={{ applications.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ applications.number }} of {{ applications.paginator.num_pages }}.
+                    </span>
+
+                    {% if applications.has_next %}
+                        <a href="?page={{ applications.next_page_number }}">next</a>
+                    {% endif %}
+                </span>
+            </div>
+        </div>
+    </div>
+{% endif %}
+<br/><br/><p></p>
+{% if request.user.is_authenticated %}
+{% if applications %}
+<div class="container w3-main">
+    <h3>{{title}}</h3>
+    {% for application in applications %}
+    <div class="card mb-3" style="max-width: 540px;">
+      <div class="row no-gutters">
+        <div class="col-md-4">
+            {% if application.picture %}
+                <img alt="avatar" class="card-img" src="{{ application.picture.url }}" />
+            {% else %}
+                <img alt="avatar" class="card-img" src="{% static 'images/avatar.jpg' %}" />
+            {% endif %}
+        </div>
+        <div class="col-md-8">
+          <div class="card-body">
+            <h5 class="card-title">{{ application.name }} {{ application.surname }}</h5>
+            <p class="desc">{{ application.job_offer.title }}</p>
+            <p class="card-text"><span class="desc"><i class="glyphicon glyphicon-calendar"></i> Sent: {{ application.created_date }}</span></small></p>
+            <div class="info-bottom-area">
+                <span class="info-btn"><a class="btn btn-lg btn-primary" href="{% url 'jobs:application_detail' application.id %}" role="button">View Application</a></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+{% endfor %}
+{% else %}
+    <h1>There is no applications.</h1>
+{% endif %}
+{% else %}
+    <h1>You're not logged in.</h1>
+    <a href="{% url 'login' %}">Login</a>
+{% endif %}
+{% endblock %}
+</html>

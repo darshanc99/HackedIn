@@ -16,14 +16,15 @@
 	</head>
 {% extends 'hub/navbar.html' %}
 {% block body %}
+
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><h2><b>HackedIn</b></h2></a>
   <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" 
   class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
-  <a href="{% url 'profile' %}" class="w3-bar-item w3-button" style="background-color:#D3D3D3"><i class="fa fa-star"></i> My Profile</a>
-  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"><i class="fa fa-pencil"></i> Edit Profile</a>
+  <a href="{% url 'profile' %}" class="w3-bar-item w3-button" ><i class="fa fa-star"></i> My Profile</a>
+  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"style="background-color:#D3D3D3"> <i class="fa fa-pencil"></i> Edit Profile</a>
   
-  <a href="{% url 'applications' %}" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>My Offers</a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user w3-margin-right"></i>
 Candidates</a>
@@ -53,24 +54,21 @@ Messages</a>
 </script>
 
 
+
 <!-- Page content -->
-<div class="w3-main" style="margin-left:320px;">
-<i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-top" onclick="w3_open()"></i>
-<a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
-<div id="Borge" class="w3-container person">
-  <br>
-  <img class="w3-round  w3-animate-top" src="{{user.profile.image.url}}" alt="{{user.username}}" style="width:20%;">
-  <br/><br/><p></p>
-  <div class="card">
-  	<div class="card-body">
-  <h4>GitHub ID: {{user.username}}</h4>
-  <h4>First Name: {{user.first_name}}</h4>
-  <h4>Last Name: {{user.last_name}}</h4>
-  <h4>Email ID: {{user.email}}</h4>
-  <h4><a href = "mailto:{{user.email}}"> <button class="btn btn-outline-primary">Send Mail</button></a></h4> 
-  	</div>
-  </div> 
+<div class="container w3-main" style="margin-left:320px;">
+  {% load crispy_forms_tags %}
+  <form method="POST" enctype="multipart/form-data">
+  {% csrf_token %}<br/><p></p>
+  <fieldset class="form-group">
+    {{ u_form|crispy }}
+    {{ p_form|crispy }}
+  </fieldset>
+  <div class="form-group">
+    <button class="btn btn-outline-info" type="submit">Update</button>
+  </div>
+</form>
 </div>
-</div>
+
 {% endblock %}
 </html>

@@ -1,8 +1,8 @@
 <html>
-	<head>
-		<title>HackedIn Profile </title>
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <head>
+        <title>HackedIn Profile </title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
     <meta charset="UTF-8">
@@ -13,21 +13,22 @@
     html,body,h1,h2,h3,h4,h5 {font-family: "RobotoDraft", "Roboto", sans-serif;}
     .w3-bar-block .w3-bar-item{padding:16px}
     </style>
-	</head>
+    </head>
 {% extends 'hub/navbar.html' %}
 {% block body %}
+
 <nav class="w3-sidebar w3-bar-block w3-collapse w3-white w3-animate-left w3-card" style="z-index:3;width:320px;" id="mySidebar">
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><h2><b>HackedIn</b></h2></a>
   <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" 
   class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
-  <a href="{% url 'profile' %}" class="w3-bar-item w3-button" style="background-color:#D3D3D3"><i class="fa fa-star"></i> My Profile</a>
-  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"><i class="fa fa-pencil"></i> Edit Profile</a>
+  <a href="{% url 'profile' %}" class="w3-bar-item w3-button" ><i class="fa fa-star"></i> My Profile</a>
+  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"> <i class="fa fa-pencil"></i> Edit Profile</a>
   
-  <a href="{% url 'applications' %}" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
+  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>My Offers</a>
   <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user w3-margin-right"></i>
 Candidates</a>
-  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope w3-margin-right"></i>
+  <a href="#" class="w3-bar-item w3-button"style="background-color:#D3D3D3"><i class="fa fa-envelope w3-margin-right"></i>
 Messages</a>
 </nav>
 
@@ -53,24 +54,33 @@ Messages</a>
 </script>
 
 
+
 <!-- Page content -->
-<div class="w3-main" style="margin-left:320px;">
-<i class="fa fa-bars w3-button w3-white w3-hide-large w3-xlarge w3-margin-top" onclick="w3_open()"></i>
-<a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
-<div id="Borge" class="w3-container person">
-  <br>
-  <img class="w3-round  w3-animate-top" src="{{user.profile.image.url}}" alt="{{user.username}}" style="width:20%;">
-  <br/><br/><p></p>
-  <div class="card">
-  	<div class="card-body">
-  <h4>GitHub ID: {{user.username}}</h4>
-  <h4>First Name: {{user.first_name}}</h4>
-  <h4>Last Name: {{user.last_name}}</h4>
-  <h4>Email ID: {{user.email}}</h4>
-  <h4><a href = "mailto:{{user.email}}"> <button class="btn btn-outline-primary">Send Mail</button></a></h4> 
-  	</div>
-  </div> 
-</div>
+<br/><br/><p></p>
+<div class="container w3-main">
+{% if conversations %}
+  <h3><b>Conversations:</b></h3><br/>
+  {% if request.user.is_authenticated %}
+  {% for conversation in conversations %}
+  <ul class="w3-ul w3-card-4" style="width:50%">
+    <li class="w3-bar">
+      <a href="{% url 'jobs:conversation_delete' conversation.id %}"><span class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span></a>
+      <div class="w3-bar-item">
+        <a href="{% url 'jobs:conversation' conversation.id %}">
+          {{ conversation.title }}
+        </a>
+      </div><br/>
+      <span>{{conversation.user_two}}</span>
+    </li>
+  </ul>
+  {% endfor %}
+{% else %}
+    <h1>You're not logged in.</h1>
+      <a href="{% url 'auth_login' %}">Login</a>
+{% endif %}
+{% else %}
+  <h3>You have zero messages :( </h3>
+{% endif %}
 </div>
 {% endblock %}
 </html>

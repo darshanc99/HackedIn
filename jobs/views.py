@@ -1,21 +1,15 @@
+#Import Dependencies
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 
 
-# views to odpowiednik kontrolera dlatego django ma MTV a nie MVC, jedynie nazwa sie zmienia.
-# w sumie ten kod w pythonie czyta sie jak ksiazke dla dzieci, ale dodam komentarze
-
-# strona glowna xD
+# Home Page
 def index(request):
     return render(request, 'jobs/index.html', {})
 
-
-# dodawanie wiadomosci
-# MessageForm (patrz forms.py) zapisuje dane jezeli sa poprawne ale nie wrzuca ich do bazy danych (commit=False)
-# uzytkownik, konwersacja moga byc puste w formularzu (blank=True), ale w bazie danych nie (brak null=True)
-# jezeli uzytkownik jest zalogowany i uzytkownik nalezy do konwersacji to wtedy wiadomosc jest zapisywana
+#Post Message
 def post_message(request, conversation_id):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -33,8 +27,7 @@ def post_message(request, conversation_id):
 
     return redirect('auth_login')
 
-# tworzenie konwersacji z potencjalnym pracownikiem
-# osoba ktora jest wlascicielem moze zaczac i stworzyc konwersacje
+# Create Conversation
 def create_conversation(request, application_id):
     if request.user.is_authenticated:
         application = get_object_or_404(JobApplication, id=application_id)
@@ -50,14 +43,7 @@ def create_conversation(request, application_id):
 
     return redirect('auth_login')
 
-# wyswietlenie konwersacji i wiadomosci (oraz konwersacji uzytkownika)
-# cos jak messanger na fb
-# z racji ze uzytkownik moze byc user_one lub user_two (patrz model Conversation) to musimy wyciagnac
-# wszystkie konwersacje do ktorych uzytkownik nalezy
-# wiadomosci sa wyciagane tylko z jednej konwersacji - tej ktora zostala kliknieta i ktorej id zostalo
-# wyslane do funckji.
-# uzylem tez wbudowanego paginatora, ktory tworzy nam strony z wiadomosciami (max 10 na stronie)
-# ten sam paginator znajduje sie w innych miejscach w kodzie jak i w plikach html
+# Conversation
 def conversation(request, conversation_id):
     if request.method == 'POST':
         return post_message(request, conversation_id)
@@ -90,8 +76,7 @@ def conversation(request, conversation_id):
     return redirect('auth_login')
 
 
-# usuniecie konwersacji po sprawdzeniu czy uzytkownik jest zalogowany i czy nalezy do konwersacji
-# stworzyc konwersacje moze tylko wlasciciel ogloszenia lecz usunac moga obie strony
+# Delete Conversation
 def conversation_delete(request, conversation_id):
     if request.user.is_authenticated:
         conversation = get_object_or_404(Conversation, id=conversation_id)
@@ -102,7 +87,7 @@ def conversation_delete(request, conversation_id):
     return redirect('auth_login')
 
 
-# wszystkie konwersacje do ktorych nalezy uzytkownik
+# User Conversations
 def user_conversations(request, username):
     if request.user.is_authenticated:
         conversations = Conversation.objects.filter(
@@ -115,10 +100,7 @@ def user_conversations(request, username):
         return render(request, 'jobs/user_conversations.html', context)
 
 
-# wyszukiwanie offer poprzez lokalizacje, tytul ogloszenia czy tez rodzaj pracy
-# nie trzeba podawac wszystkich parametrow, mozna tylko jeden (mp. tytul)
-# mozna tez podac zero, wtedy wyszuka nam 0 ofert
-# title wypisze nam query ktorego szukamy
+# Search
 def search(request):
     offers = None
     title = 'Search for: '
@@ -146,28 +128,13 @@ def search(request):
     return render(request, 'jobs/offers.html', context)
 
 
-# profil uzytkownika
-# w ogole nie wiem dlaczego zrobilem to po username skoro moglem ustawic statyczny url
-# ale jakos nie zmienialem tego bo rejestracja sprawdza unikatowosc maila i username
-# w sumie z mailem nie jestem pewny, pewnie pozniej sprawdze w dokumentacji, ale username na bank
-# uzylem appki django registration-redux (kazdy w django jej uzywa zamiast samemu pisac)
-# nie ma tutaj sprawdzania czy uzytkownik jest zarejestrowany, ale jest to w template (odpowiednik view)
+# USer Profile
 def user_profile(request, username):
     user = User.objects.get(username=username)
     return render(request, 'jobs/user_profile.html', {'user': user})
 
 
-# wyswietla cale podanie i prace
-# tylko uzytkownik ktory wstawil oferte lub aplikowal o prace moze ja zobaczyc
-# dodatkowo w template przyciski sie roznia (wlasciciel moze skontaktowac sie z uzytkownikiem)
-# w template (odpowiednik view w MVC) jest problem z praca przy niektorych obiektach wiec
-# tworze tablice stringow, poprzez rozdzielenie przy pojawieniu sie znaku "-"
-# po czym wrzucam w template i wyswietlam uzytkownikowi w postaci listy
-# w formularzu podane jest jako hint ze zeby stworzyc liste to trzeba dodac "-"
-# dzieki temu mozesz napisac:
-# -At least 100 years of commercial experience
-# -Good knowledge of Design Patterns
-# itd :D
+# Application Details
 def application_detail(request, application_id):
     application = get_object_or_404(JobApplication, id=application_id)
     if request.user.is_authenticated and \
@@ -186,7 +153,7 @@ def application_detail(request, application_id):
     return redirect('jobs:index')
 
 
-# usuniecie oferty pracy tylko przez wlasciciela
+# Delete Offer
 def offer_delete(request, offer_id):
     offer = get_object_or_404(JobOffer, id=offer_id)
     if request.user.is_authenticated and offer.user == request.user:
@@ -195,7 +162,7 @@ def offer_delete(request, offer_id):
 
     return redirect('jobs:index')
 
-# edycja oferty (mozna bylo jakies typo zrobic czy cos)
+# Update Offer
 def offer_update(request, offer_id):
     title = ''
     offer = get_object_or_404(JobOffer, id=offer_id)
@@ -222,8 +189,7 @@ def offer_update(request, offer_id):
     return redirect('jobs:index')
 
 
-# wyswietla w profilu uzytkownika wszystkie podania o prace
-# tutaj tez w/w paginator
+# User Applications
 def user_applications(request, username):
     applications = []
     title = 'Your Applications'
@@ -247,8 +213,7 @@ def user_applications(request, username):
     return render(request, 'jobs/user_applications.html', context)
 
 
-# wyswietla w profilu uzytkownika wszystkie podania zwiazane z naszymi ogloszeniami
-# paginator again
+# Candidates
 def candidates(request, username):
     applications = []
     title = 'Your Candidates'
@@ -272,8 +237,7 @@ def candidates(request, username):
     return render(request, 'jobs/candidates.html', context)
 
 
-# wyswietla w profilu uzytkownika wszystkie oferty ktore uzytkownik umiescil na stronie
-# paginator
+# User Offers
 def user_offers(request, username):
     offers = []
     if request.user.is_authenticated:
@@ -290,7 +254,7 @@ def user_offers(request, username):
 
     return render(request, 'jobs/user_offers.html', {'offers': offers})
 
-# wszystkie oferty pracy w zakladce 'Offers'
+# Job Offers
 def job_offers(request):
     offers = JobOffer.objects.all().order_by('-created_date')
     industries = JobOffer.INDUSTRY_TYPES
@@ -311,7 +275,7 @@ def job_offers(request):
     return render(request, 'jobs/offers.html', context)
 
 
-# dodawanie oferty, zwroc uwage na forms.py
+# Add Job Offers
 def job_offer_add(request):
     title = ""
     if request.method == 'POST':
@@ -341,8 +305,7 @@ def job_offer_add(request):
     return render(request, 'jobs/job_offer_add.html', context)
 
 
-# podobnie co w wyswietleniu podania o prace tylko jest wiecej list stringow
-# zasada dzialania jest taka sama
+# Offer Details
 def offer_detail(request, offer_id):
     offer = get_object_or_404(JobOffer, id=offer_id)
     requirements = offer.requirements.rstrip().split('-')
@@ -362,12 +325,7 @@ def offer_detail(request, offer_id):
     return render(request, 'jobs/offer_detail.html', context)
 
 
-# to ciekawa sprawa jest. Wszystko szlo gladko do tego mementu
-# pola ktore pojawia sie w formularzu sa zalezne od tego co wlasciciel oferty zaznaczyl podczas jej dodawania
-# mozna bylo zrobic brute force, ale wybralem bardziej dynamiczny sposob
-# wzroc uwage na parametr "extra" w JobApplyForm
-# jest on stworzony przeze mnie i przyjmuje dictionary (key, bool) jako parametr (requirements)
-# formularz dzieki temu dynamicznie dodaje pola ktore maja sie pojawic (zobacz forms.py linia: 104, funkcja __init__)
+# Apply Job
 def job_apply(request, offer_id):
     title = ""
     offer = get_object_or_404(JobOffer, id=offer_id)

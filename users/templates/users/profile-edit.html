@@ -21,16 +21,18 @@
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><h2><b>HackedIn</b></h2></a>
   <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" 
   class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
-  <a href="{% url 'profile' %}" class="w3-bar-item w3-button" ><i class="fa fa-star"></i> My Profile</a>
-  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"style="background-color:#D3D3D3"> <i class="fa fa-pencil"></i> Edit Profile</a>
+  <a href="{% url 'profile' %}" class="w3-bar-item w3-button"><i class="fa fa-star"></i> My Profile</a>
+  <a href="{% url 'profacc' %}" class="w3-bar-item w3-button"><i class="fa fa-trophy"></i> My Accomplishments</a>
+  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"  style="background-color:#D3D3D3"><i class="fa fa-pencil" ></i> Edit Profile</a>
   
-  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
-  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>My Offers</a>
-  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-user w3-margin-right"></i>
+  <a href="{% url 'applications' %}" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
+  <a href="{% url 'joboffers' %}" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>My Offers</a>
+  <a href="{% url 'jobcandidates' %}" class="w3-bar-item w3-button"><i class="fa fa-user w3-margin-right"></i>
 Candidates</a>
-  <a href="#" class="w3-bar-item w3-button"><i class="fa fa-envelope w3-margin-right"></i>
+  <a href="{% url 'jobconv' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope w3-margin-right"></i>
 Messages</a>
 </nav>
+
 
 <!-- Overlay effect when opening the side navigation on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Close Sidemenu" id="myOverlay"></div>

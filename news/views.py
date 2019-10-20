@@ -16,7 +16,7 @@ def news(request):
 	a = ast.literal_eval(a)
 	lis = []
 	ses = requests.session()
-	for i in range(10):
+	for i in range(1):
 		url = "https://hacker-news.firebaseio.com/v0/item/"+str(a[i])+ ".json"
 		payload = "{}"
 		response = ses.request("GET", url, data=payload)
@@ -25,8 +25,6 @@ def news(request):
 			news = {'title': str(dict_response['title']), 'url': dict_response['url'], 'type': str(dict_response['type'])}
 		
 			lis.append(news)
-	print(lis)
 	a = {'my_list':lis}
-	print(a)
 	template = loader.get_template('news/news.html')
 	return HttpResponse(template.render(a,request))

@@ -20,10 +20,18 @@
   <a href="javascript:void(0)" class="w3-bar-item w3-button w3-border-bottom w3-large"><h2><b>HackedIn</b></h2></a>
   <a href="javascript:void(0)" onclick="w3_close()" title="Close Sidemenu" 
   class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
-  <a href="/community/" class="w3-bar-item w3-button"><i class="fa fa-star"></i> Community</a>
-  <a href="/community/new/" class="w3-bar-item w3-button" style="background-color:#D3D3D3"><i class="fa fa-pencil"></i> New Accomplishment</a>
-  <a href="/community/user/{{user.username}}" class="w3-bar-item w3-button"><i class="fa fa-trophy"></i> My Accomplishments</a>
+  <a href="{% url 'profile' %}" class="w3-bar-item w3-button"><i class="fa fa-star"></i> My Profile</a>
+  <a href="{% url 'profacc' %}" class="w3-bar-item w3-button"  style="background-color:#D3D3D3"><i class="fa fa-trophy"></i> My Accomplishments</a>
+  <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"><i class="fa fa-pencil"></i> Edit Profile</a>
+  
+  <a href="{% url 'applications' %}" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
+  <a href="{% url 'joboffers' %}" class="w3-bar-item w3-button"><i class="fa fa-paper-plane w3-margin-right"></i>My Offers</a>
+  <a href="{% url 'jobcandidates' %}" class="w3-bar-item w3-button"><i class="fa fa-user w3-margin-right"></i>
+Candidates</a>
+  <a href="{% url 'jobconv' %}" class="w3-bar-item w3-button"><i class="fa fa-envelope w3-margin-right"></i>
+Messages</a>
 </nav>
+
 
 <!-- Overlay effect when opening the side navigation on small screens -->
 <div class="w3-overlay w3-hide-large w3-animate-opacity" onclick="w3_close()" style="cursor:pointer" title="Close Sidemenu" id="myOverlay"></div>
@@ -53,21 +61,44 @@
 <a href="javascript:void(0)" class="w3-hide-large w3-red w3-button w3-right w3-margin-top w3-margin-right" onclick="document.getElementById('id01').style.display='block'"><i class="fa fa-pencil"></i></a>
 <div id="Borge" class="w3-container person">
   <br>
-  <h3 style="padding-left: 10%">Network Accomplishments</h3>
 </div>
+<h1 class="mb-3" style="padding-left: 10%">Posts by {{user.username}}</h1>
+{% for accomplishment in accomplishments %}
+<br/><br/>
 <div class="w3-center center" style="padding-left:10%">
   <div class="card border-dark mb-3" style="max-width: 18rem;">
-    <div class="card-header">{{object.title}}</div>
-    {% if object.author == user %}
-      <a class="btn btn-secondary btn-sm mt-1 mb-1" href="{% url 'network-update' object.id %}">Update</a>
-      <a class="btn btn-danger btn-sm mt-1 mb-1" href="{% url 'network-delete' object.id %}">Delete</a>
-    {% endif %}
-    <div class="card-body text-dark">
-      <p class="card-text">{{object.content}}</p>
+    <div class="card-header">
+      <a href="{% url 'network-post' accomplishment.id %}">{{accomplishment.title}}</a>
     </div>
-    <footer class="blockquote-footer"><a href="{% url 'user-posts' accomplishment.author.username %}">{{object.author}}</a> on <cite title="Source Title">{{object.date_posted}}</cite></footer>
+    <div class="card-body text-dark">
+      <p class="card-text">{{accomplishment.content}}</p>
+    </div>
+    <footer class="blockquote-footer"><a href="{% url 'user-posts' accomplishment.author.username %}">{{accomplishment.author}}</a> on <cite title="Source Title">{{accomplishment.date_posted}}</cite></footer>
   </div>
 </div>
+{%endfor%}
+{% if is_paginated %}
+  
+  {% if page_obj.has_previous %}
+    <a class="btn btn-outline-info mb-4" href="?page=1">First</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.previous_page_number}}">Previous</a>
+  {% endif %}
+
+  {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3'%}
+      <a class="btn btn-info mb-4" href="?page={{ num }}">{{ num }}</a>
+    {% endif %}
+  {% endfor %}
+
+  {% if page_obj.has_next %}
+    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.next_page_number}}">Next</a>
+    <a class="btn btn-outline-info mb-4" href="?page={{page_obj.paginator.num_pages}}">Last</a>
+  {% endif %}
+
+
+{% endif %}
 
 </div>
 {% endblock %}

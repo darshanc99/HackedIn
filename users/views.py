@@ -6,6 +6,14 @@ from .forms import UserRegisterForm,UserUpdateForm,ProfileUpdateForm
 from jobs.models import JobApplication, JobOffer, Conversation
 from django.db.models import Q
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from hub.models import Accomplishment
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.views.generic import (ListView,
+    DetailView,
+    CreateView,
+    UpdateView,
+    DeleteView
+    )
 
 # Create your views here.
 def register(request):
@@ -118,3 +126,12 @@ def user_conversations(request):
             'conversations': conversations,
         }
         return render(request, 'users/user_conversations.html', context)
+
+def accomplishments(request):
+    accomplishments = []
+    if request.user.is_authenticated:
+        accomplishments = Accomplishment.objects.filter(author=request.user)
+        context = {
+            'accomplishments':accomplishments,
+        }
+        return render(request,'users/accomplishments.html',context)

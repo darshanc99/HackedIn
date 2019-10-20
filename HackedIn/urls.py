@@ -10,18 +10,26 @@ from django.conf import settings
 urlpatterns = [
 	#/admin/
     path('admin/', admin.site.urls),
-    #/register/
-    path('register/',user_views.register,name='register'),
-    #/community/
-    path('community/',include('hub.urls'),name='home'),
+    #/
+    path('',include('homepage.urls'),name='home'),
     #/news/
     path('news/',include('news.urls'),name='news'),
+    #/jobs/
+    path('jobs/',include('jobs.urls'),name='job'),
+    #/forums/
+    path('forums/',include('forums.urls'),name='forum'),
+    #/community/
+    path('community/',include('hub.urls'),name='community'),
+    #/register/
+    path('register/',user_views.register,name='register'),
     #/login/
     path('login/',auth_views.LoginView.as_view(template_name='users/login.html'),name='login'),
     #/logout/
     path('logout/',auth_views.LogoutView.as_view(template_name='users/logout.html'),name='logout'),
     #/profile/
     path('profile/',user_views.profile,name='profile'),
+    #/profile/accomplishments/
+    path('profile/accomplishments/',user_views.accomplishments,name='profacc'),
     #/profile/edit/
     path('profile/edit/',user_views.edit,name='profile-edit'),
     #/profile/applications/
@@ -31,13 +39,7 @@ urlpatterns = [
     #/profile/candidates/
     path('profile/candidates/',user_views.candidates,name='jobcandidates'),
     #/profile/converstaions/
-    path('profile/converstaions/',user_views.user_conversations,name='converstaions'),
-    #/
-    path('',include('homepage.urls')),
-    #/forums/
-    path('forums/',include('forums.urls')),
-    #/job/
-    path('jobs/',include('jobs.urls')),
+    path('profile/converstaions/',user_views.user_conversations,name='jobconv'),
 ]
 
 if settings.DEBUG:

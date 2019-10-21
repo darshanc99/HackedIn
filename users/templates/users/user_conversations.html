@@ -69,19 +69,19 @@ Messages</a>
       <a href="{% url 'jobs:conversation_delete' conversation.id %}"><span class="w3-bar-item w3-button w3-xlarge w3-right">&times;</span></a>
       <div class="w3-bar-item">
         <a href="{% url 'jobs:conversation' conversation.id %}">
-          {{ conversation.title }}
+          {{ conversation.title }} - <i>{{conversation.user_two}}</i>
         </a>
       </div><br/>
-      <span>{{conversation.user_two}}</span>
     </li>
   </ul>
+  <br/>
   {% endfor %}
 {% else %}
     <h1>You're not logged in.</h1>
       <a href="{% url 'auth_login' %}">Login</a>
 {% endif %}
 {% else %}
-  <h3>You have zero messages :( </h3>
+  <h3>No messages.</h3>
 {% endif %}
 </div>
 {% endblock %}

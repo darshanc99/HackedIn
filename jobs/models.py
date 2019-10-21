@@ -2,9 +2,7 @@ from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
 
-# model ofery pracy, user ma wartosc blank True gdyz nie potrzebny nam w formularzu (uzupelniamy go w views
-# pensja nie jest wymagana dlatego ma wartosc null i blank
-# mamy tez python tuple (to cos co wyglada jak enum) do naszego comboboxa w formularzu
+
 class JobOffer(models.Model):
     INDUSTRY_TYPES = (
         ('Accounting', 'Accounting'),
@@ -40,9 +38,6 @@ class JobOffer(models.Model):
 
 
 
-# jest to model przypisany do oferty
-# dzieki niemu mozemy wybrac co jest wymagane w formularzu wypelnianego przez potencjalnego pracownika
-# job_offer blank True gdyz nie jest potrzebna w formularzu (dodajemy ja w views.py)
 class ApplicationRequirements(models.Model):
     job_offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, blank=True)
     formPicture = models.BooleanField()
@@ -56,9 +51,6 @@ class ApplicationRequirements(models.Model):
     formHobby = models.BooleanField()
 
 
-# model cv czy po prostu aplikacji o prace
-# te rzeczy ktore sa blank nie sa wymagane i sa zalezne od pol ApplicationRequirements
-# tutaj tez enum do comboboxa
 class JobApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     job_offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, blank=True)
@@ -92,16 +84,11 @@ class JobApplication(models.Model):
     created_date = models.DateTimeField(auto_now=True)
 
 
-# dodalem mozliwosc stworzenia konwersacji z potencjalnym pracownikiem
-# nie wiem czy gdzies indziej tez nazywa sie to CASCADE wiec wytlumacze :D
-# jezeli ktorys uzytkownik zostanie usuniety to konwersacja tez (CASCADE)
-# blank dlatego ze uzytkownikow ustawiamy w views
 class Conversation(models.Model):
     user_one = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='user_one')
     user_two = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='user_two')
     title = models.CharField(max_length=38)
 
-# chyba nie trzeba tlumaczyc
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, blank=True)

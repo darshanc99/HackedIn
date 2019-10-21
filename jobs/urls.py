@@ -19,7 +19,7 @@ urlpatterns = [
     #/jobs/offers/<offerid>/add/
     url(r'offers/add/$', views.job_offer_add, name='job_offer_add'),    
 
-    #/jobs/offers/delete/
+    #/jobs/offers/<id>/delete/
     url(r'offers/(?P<offer_id>[0-9]+)/delete/$', views.offer_delete, name='offer_delete'),
 
     #/jobs/offers/update/

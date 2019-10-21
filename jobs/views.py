@@ -3,13 +3,16 @@ from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
+from django.contrib.auth.decorators import login_required
 
 
 # Home Page
 def index(request):
     return render(request, 'jobs/index.html', {})
 
+
 #Post Message
+@login_required
 def post_message(request, conversation_id):
     if request.user.is_authenticated:
         if request.method == 'POST':
@@ -28,6 +31,7 @@ def post_message(request, conversation_id):
     return redirect('auth_login')
 
 # Create Conversation
+@login_required
 def create_conversation(request, application_id):
     if request.user.is_authenticated:
         application = get_object_or_404(JobApplication, id=application_id)
@@ -44,6 +48,7 @@ def create_conversation(request, application_id):
     return redirect('auth_login')
 
 # Conversation
+@login_required
 def conversation(request, conversation_id):
     if request.method == 'POST':
         return post_message(request, conversation_id)
@@ -77,6 +82,7 @@ def conversation(request, conversation_id):
 
 
 # Delete Conversation
+@login_required
 def conversation_delete(request, conversation_id):
     if request.user.is_authenticated:
         conversation = get_object_or_404(Conversation, id=conversation_id)
@@ -88,6 +94,7 @@ def conversation_delete(request, conversation_id):
 
 
 # User Conversations
+@login_required
 def user_conversations(request, username):
     if request.user.is_authenticated:
         conversations = Conversation.objects.filter(
@@ -129,12 +136,14 @@ def search(request):
 
 
 # USer Profile
+@login_required
 def user_profile(request, username):
     user = User.objects.get(username=username)
     return render(request, 'jobs/user_profile.html', {'user': user})
 
 
 # Application Details
+@login_required
 def application_detail(request, application_id):
     application = get_object_or_404(JobApplication, id=application_id)
     if request.user.is_authenticated and \
@@ -154,15 +163,17 @@ def application_detail(request, application_id):
 
 
 # Delete Offer
+@login_required
 def offer_delete(request, offer_id):
     offer = get_object_or_404(JobOffer, id=offer_id)
     if request.user.is_authenticated and offer.user == request.user:
         offer.delete()
-        return redirect('jobs:user_profile', username=request.user.username)
+        return redirect('/jobs/offers/', username=request.user.username)
 
     return redirect('jobs:index')
 
 # Update Offer
+@login_required
 def offer_update(request, offer_id):
     title = ''
     offer = get_object_or_404(JobOffer, id=offer_id)
@@ -190,6 +201,7 @@ def offer_update(request, offer_id):
 
 
 # User Applications
+@login_required
 def user_applications(request, username):
     applications = []
     title = 'Your Applications'
@@ -214,6 +226,7 @@ def user_applications(request, username):
 
 
 # Candidates
+@login_required
 def candidates(request, username):
     applications = []
     title = 'Your Candidates'
@@ -238,6 +251,7 @@ def candidates(request, username):
 
 
 # User Offers
+@login_required
 def user_offers(request, username):
     offers = []
     if request.user.is_authenticated:
@@ -276,6 +290,7 @@ def job_offers(request):
 
 
 # Add Job Offers
+@login_required
 def job_offer_add(request):
     title = ""
     if request.method == 'POST':
@@ -306,6 +321,7 @@ def job_offer_add(request):
 
 
 # Offer Details
+@login_required
 def offer_detail(request, offer_id):
     offer = get_object_or_404(JobOffer, id=offer_id)
     requirements = offer.requirements.rstrip().split('-')
@@ -326,6 +342,7 @@ def offer_detail(request, offer_id):
 
 
 # Apply Job
+@login_required
 def job_apply(request, offer_id):
     title = ""
     offer = get_object_or_404(JobOffer, id=offer_id)
@@ -338,7 +355,7 @@ def job_apply(request, offer_id):
             apply_form.job_offer = offer
             apply_form.save()
 
-            return redirect('jobs:user_applications', username=request.user.username)
+            return redirect('/profile/applications', username=request.user.username)
         else:
             title = 'Invalid Form'
 

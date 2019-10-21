@@ -16,7 +16,7 @@ def news(request):
 	a = ast.literal_eval(a)
 	lis = []
 	ses = requests.session()
-	for i in range(1):
+	for i in range(30):
 		url = "https://hacker-news.firebaseio.com/v0/item/"+str(a[i])+ ".json"
 		payload = "{}"
 		response = ses.request("GET", url, data=payload)

@@ -22,6 +22,8 @@
   class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
   <a href="{% url 'profile' %}" class="w3-bar-item w3-button" style="background-color:#D3D3D3"><i class="fa fa-star"></i> My Profile</a>
   <a href="{% url 'profacc' %}" class="w3-bar-item w3-button"><i class="fa fa-trophy"></i> My Accomplishments</a>
+  <a href="/profile/github/{{user.username}}" class="w3-bar-item w3-button"><i class="fa fa-github-alt"></i>
+  </i> Github Activity</a>
   <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"><i class="fa fa-pencil"></i> Edit Profile</a>
   
   <a href="{% url 'applications' %}" class="w3-bar-item w3-button"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
@@ -64,7 +66,7 @@ Messages</a>
   <br/><br/><p></p>
   <div class="card">
   	<div class="card-body">
-  <h4>GitHub ID: {{user.username}}</h4>
+  <h4>GitHub ID: <a href="https://www.github.com/{{user.username}}" style="color:blue">@{{user.username}}</a></h4>
   <h4>First Name: {{user.first_name}}</h4>
   <h4>Last Name: {{user.last_name}}</h4>
   <h4>Email ID: {{user.email}}</h4>

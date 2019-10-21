@@ -14,6 +14,9 @@ from django.views.generic import (ListView,
     UpdateView,
     DeleteView
     )
+from django.template import loader
+from django.http import HttpResponse
+import requests
 
 # Create your views here.
 def register(request):
@@ -56,6 +59,7 @@ def edit(request):
 	}
 	return render(request,'users/profile-edit.html',context)
 
+@login_required
 def applications(request):
     applications = []
     title = 'Your Applications'
@@ -78,6 +82,7 @@ def applications(request):
     }
     return render(request, 'users/user_applications.html', context)
 
+@login_required
 def offers(request):
     offers = []
     if request.user.is_authenticated:
@@ -94,6 +99,7 @@ def offers(request):
 
     return render(request, 'users/useroffers.html', {'offers': offers})
 
+@login_required
 def candidates(request):
     applications = []
     title = 'Your Candidates'
@@ -116,6 +122,7 @@ def candidates(request):
     }
     return render(request, 'users/candidates.html', context)
 
+@login_required
 def user_conversations(request):
     if request.user.is_authenticated:
         conversations = Conversation.objects.filter(
@@ -127,6 +134,7 @@ def user_conversations(request):
         }
         return render(request, 'users/user_conversations.html', context)
 
+@login_required
 def accomplishments(request):
     accomplishments = []
     if request.user.is_authenticated:
@@ -135,3 +143,21 @@ def accomplishments(request):
             'accomplishments':accomplishments,
         }
         return render(request,'users/accomplishments.html',context)
+
+@login_required
+def github(request,username):
+    #user = get_object_or_404(User,username=self.kwargs.get('username'))
+    req = requests.get('https://api.github.com/users/'+username+'/repos?per_page=1000')
+    json = req.json()
+    lis = []
+    for i in range(0,len(json)):
+        #print("Project Number:",i+1)
+        #print("Project Name:",json[i]['name'])
+        #print("Project URL:",json[i]['svn_url'],"\n")
+        git = {'number': str(i+1), 'name': str(json[i]['name']), 'url': str(json[i]['svn_url'])}
+        lis.append(git)
+    context = {
+        'git' : lis
+    }
+    template = loader.get_template('users/github.html')
+    return HttpResponse(template.render(context,request))

@@ -40,6 +40,8 @@ urlpatterns = [
     path('profile/candidates/',user_views.candidates,name='jobcandidates'),
     #/profile/converstaions/
     path('profile/converstaions/',user_views.user_conversations,name='jobconv'),
+    #/profile/github/<username>/
+    path('profile/github/<str:username>',user_views.github,name='profgit'),
 ]
 
 if settings.DEBUG:

@@ -12,6 +12,7 @@ from django.views.generic import (ListView,
 	UpdateView,
 	DeleteView
 	)
+import requests
 
 @login_required
 def network(request):

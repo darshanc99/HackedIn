@@ -23,6 +23,8 @@
   class="w3-bar-item w3-button w3-hide-large w3-large">Close <i class="fa fa-remove"></i></a>
   <a href="{% url 'profile' %}" class="w3-bar-item w3-button"><i class="fa fa-star"></i> My Profile</a>
   <a href="{% url 'profacc' %}" class="w3-bar-item w3-button"><i class="fa fa-trophy"></i> My Accomplishments</a>
+  <a href="/profile/github/{{user.username}}" class="w3-bar-item w3-button"><i class="fa fa-github-alt"></i>
+  </i> Github Activity</a>
   <a href="{% url 'profile-edit' %}" class="w3-bar-item w3-button"><i class="fa fa-pencil"></i> Edit Profile</a>
   
   <a href="{% url 'applications' %}" class="w3-bar-item w3-button"  style="background-color:#D3D3D3"><i class="fa fa-hourglass-end w3-margin-right"></i>My Applications</a>
@@ -106,16 +108,24 @@ Messages</a>
       </div>
     </div>
 {% endfor %}
+</div>
+{% else %}
+<div class="container w3-main">
+  <h1>There is no applications.</h1>
+</div>
+    
+{% endif %}
+{% else %}
+<div class="container w3-main">
+      <h1>You're not logged in.</h1>
+    <a href="{% url 'login' %}">Login</a>
+</div>
+
+{% endif %}
   </div>
       </div>
     </div>
 </div>
-{% else %}
-    <h1>There is no applications.</h1>
-{% endif %}
-{% else %}
-    <h1>You're not logged in.</h1>
-    <a href="{% url 'login' %}">Login</a>
-{% endif %}
+
 {% endblock %}
 </html>

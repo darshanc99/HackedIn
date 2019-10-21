@@ -83,98 +83,40 @@ Messages</a>
 {% endif %}
 <br/><br/><p></p>
 
-<div class="container w3-main">
-    <div class="card mb-3" style="max-width: 100%;">
-      <div class="row no-gutters">
-        <div class="col-md-4">
-            {% if application.picture %}
-                <img alt="avatar" class="card-img" src="{{ application.picture.url }}" />
-            {% else %}
-                <img alt="avatar" class="card-img" src="{% static 'images/avatar.jpg' %}" />
-            {% endif %}
-        </div>
-        <div class="col-md-8">
-          <div class="card-body">
-            <h1><strong>{{ application.name }} {{ application.surname }}</strong></h1>
-            {% if application.age %}
-              <p style="font-size: 18px;"><strong>Age: </strong> {{ application.age }}</p>
-            {% endif %}
-              <p style="font-size: 18px;"><strong>Email: </strong> {{ application.email }}</p>
-            {% if application.education %}
-              <p style="font-size: 18px;"><strong>Education: </strong> {{ application.education }}</p>
-            {% endif %}
-            {% if application.placeOfResidence %}
-              <p style="font-size: 18px;"><strong>Location: </strong> {{ application.placeOfResidence }}</p>
-            {% endif %}
-            {% if application.currentStatus %}
-              <p style="font-size: 18px;"><strong>Working Status: </strong> {{ application.currentStatus }}</p>
-            {% endif %}
-                {% if application.aboutYou %}
-            <div class="row">
-                <div class="col-md-12" style="padding-left: 1cm;">
-                    <h2 >About Me:</h2>
-                    <p>{{ application.aboutYou }}</p>
-                </div>
-            </div>
-            <hr/>
-            {% endif %}
+    <div class="container w3-main">
+      {% if request.user.is_authenticated %}
+  <div class="row">
+    <div class="col-sm-5 col-lg-4">
+      <nav class="navbar navbar-default navbar-fixed-side" style="text-align: center;">
+          <p style="padding-top: 10px; font-size: 16px;">Conversations:<br/></p><br/><p></p><p></p><br/>
+          {% for conversation in conversations %}
+              <div class="list-group" style="margin-bottom: 5px;width:100%">
+                  <div  class="list-group-item clearfix">
+                    <a href="{% url 'jobs:conversation' conversation.id %}">
+                      <span class="glyphicon glyphicon-comment pull-left"></span>
+                      {{ conversation.title }}
+                    </a>
+                      <span class="pull-right">
+                        <a href="{% url 'jobs:conversation_delete' conversation.id %}" class="btn btn-xs btn-warning">
+                          <span class="glyphicon glyphicon-trash"></span>
+                        </a>
+                      </span>
+                  </div>
+              </div>
+          {% endfor %}
+      </nav>
+    </div>
+      <div class="col-sm-7 col-lg-8">
+        {% block user_conversation %}
 
-            {% if application.experience %}
-            <div class="row">
-                <div class="col-md-12" style="padding-left: 1cm;">
-                    <h2 >My Experience:</h2>
-                    <p>{{ application.experience }}</p>
-                </div>
-            </div>
-            <hr/>
-            {% endif %}
-
-            {% if languages %}
-            <div class="row">
-                <div style="padding-left: 1cm;">
-                    <h2>Languages:</h2>
-                    <ul>
-                        {% for language in languages %}
-                            <li>{{ language }}</li>
-                        {% endfor %}
-                    </ul>
-                </div>
-            </div>
-            <hr/>
-            {% endif %}
-
-            {% if application.hobby %}
-            <div class="row">
-                <div class="col-md-12" style="padding-left: 1cm;">
-                    <h2 >My Hobby:</h2>
-                    <p>{{ application.hobby }}</p>
-                </div>
-            </div>
-            <hr/>
-            {% endif %}
-        </div>
-        {% if application.job_offer.user == request.user %}
-        <div class="info-bottom-area">
-            <div class="title col-md-4 col-sm-offset-4">
-                <a class="btn btn-lg btn-primary" href="{% url 'jobs:create_conversation' application.id %}" role="button">Contact</a>
-            </div>
-        </div>
-        {% endif %}
-
-        <div>
-            <br><br><br>
-        </div>
-          </div>
-        </div>
-      </div>
+        {% endblock %}
     </div>
   </div>
+
+{% else %}
+    <h1>You're not logged in.</h1>
+      <a href="{% url 'auth_login' %}">Login</a>
+{% endif %}
     </div>
-{% endfor %}
-  </div>
-        </div>
-      </div>
-    </div>
-</div>
 {% endblock %}
 </html>

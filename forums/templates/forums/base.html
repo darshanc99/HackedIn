@@ -51,13 +51,6 @@
                     {% endif %}
                 </div>
         </nav>
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-{{message.tags}}">
-                    {{message}}
-                </div>
-            {% endfor %}
-        {%endif%}
 <div class="container">
     <ol class="breadcrumb my-4">
         {% block breadcrumb %}

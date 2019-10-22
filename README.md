@@ -16,6 +16,7 @@
 * A discussion forum that helps you solve your queries.
 * A community dashboard that lets you know what the programming community is upto.
 * A github dashboard for your account.
+* Includes mobile view.
 
 -------
 

@@ -1,5 +1,5 @@
 <div align="center">	
-	<h1>HackedIn :alien:</h1>
+	<h1>HackedIn :computer:</h1>
 
 [![HitCount](http://hits.dwyl.io/darshanc99/HackedIn.svg)](http://hits.dwyl.io/darshanc99/HackedIn)
 [![Open Source Love](https://badges.frapsoft.com/os/v1/open-source.png?v=103)](https://github.com/ellerbrock/open-source-badges/)

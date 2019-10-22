@@ -19,6 +19,8 @@ from django.http import HttpResponse
 import requests
 
 # Create your views here.
+
+#View function for register
 def register(request):
 	if request.method == 'POST':
 		form = UserRegisterForm(request.POST)
@@ -31,12 +33,14 @@ def register(request):
 		form = UserRegisterForm()
 	return render(request,'users/register.html',{'form':form})
 
+#View function for profile
 @login_required
 def profile(request):
 	context = {
 	}
 	return render(request,'users/profile.html',context)
 
+#View function for editing the profile
 @login_required
 def edit(request):
 	if request.method == 'POST':
@@ -59,6 +63,7 @@ def edit(request):
 	}
 	return render(request,'users/profile-edit.html',context)
 
+#View function for applications
 @login_required
 def applications(request):
     applications = []
@@ -82,6 +87,7 @@ def applications(request):
     }
     return render(request, 'users/user_applications.html', context)
 
+#View function for offers
 @login_required
 def offers(request):
     offers = []
@@ -99,6 +105,7 @@ def offers(request):
 
     return render(request, 'users/useroffers.html', {'offers': offers})
 
+#View function for candidates
 @login_required
 def candidates(request):
     applications = []
@@ -122,6 +129,7 @@ def candidates(request):
     }
     return render(request, 'users/candidates.html', context)
 
+#View function for user conversations
 @login_required
 def user_conversations(request):
     if request.user.is_authenticated:
@@ -134,6 +142,7 @@ def user_conversations(request):
         }
         return render(request, 'users/user_conversations.html', context)
 
+#View function for accomplishments
 @login_required
 def accomplishments(request):
     accomplishments = []
@@ -144,6 +153,7 @@ def accomplishments(request):
         }
         return render(request,'users/accomplishments.html',context)
 
+#View function for github repositories
 @login_required
 def github(request,username):
     #user = get_object_or_404(User,username=self.kwargs.get('username'))

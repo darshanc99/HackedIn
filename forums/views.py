@@ -1,19 +1,21 @@
+#Import Dependencies
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.db.models import Count
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, UpdateView, DeleteView
-
 from .forms import NewTopicForm, PostForm
 from .models import Board, Post, Topic
 
+#Views
 
+#View function for Board List
 class BoardListView(ListView):
     template_name = 'forums/home.html'
     model = Board
 
-
+#View function for Updating Post
 class PostUpdateView(LoginRequiredMixin, UpdateView):
     model = Post
     fields = ('message',)
@@ -32,7 +34,7 @@ class PostUpdateView(LoginRequiredMixin, UpdateView):
         post.save()
         return redirect('topic_posts', pk=post.topic.board.pk, topic_pk=post.topic.pk)
 
-
+#View function for list of topics
 class TopicListView(ListView):
     model = Topic
     context_object_name = 'topics'
@@ -49,7 +51,7 @@ class TopicListView(ListView):
         context['board'] = self.board
         return context
 
-
+#View function for list of posts
 class PostListView(ListView):
     model = Post
     context_object_name = 'posts'
@@ -68,7 +70,7 @@ class PostListView(ListView):
         context['topic'] = self.topic
         return context
 
-
+#View Function for new post
 @login_required
 def new_topic(request, pk):
     board = get_object_or_404(Board, pk=pk)
@@ -93,7 +95,7 @@ def new_topic(request, pk):
     context = {'board': board, 'form': form}
     return render(request, 'forums/new_topic.html', context)
 
-
+#View function for replying to topics
 @login_required
 def reply_topic(request, pk, topic_pk):
     topic = get_object_or_404(Topic, board__pk=pk, pk=topic_pk)

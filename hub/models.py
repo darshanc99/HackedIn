@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.urls import reverse
 
 # Create your models here.
-
+#Class for Accomplishment Table
 class Accomplishment(models.Model):
 	title = models.CharField(max_length = 100)
 	content = models.TextField()

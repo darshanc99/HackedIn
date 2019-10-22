@@ -1,8 +1,10 @@
+#Import Dependencies
 from django import forms
-
 from .models import Topic, Post
 
+#Forms
 
+#Form for New Topic
 class NewTopicForm(forms.ModelForm):
     message = forms.CharField(
         widget=forms.Textarea(),
@@ -14,7 +16,7 @@ class NewTopicForm(forms.ModelForm):
         model = Topic
         fields = ['subject', 'message']
 
-
+#Form for New Post Form
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post

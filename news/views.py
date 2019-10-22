@@ -1,13 +1,13 @@
 #Import Dependencies
 from django.shortcuts import render
-from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 import requests,ast
 
+#Views
 
+#View function to render news
 def news(request):
-	#return HttpResponse("This is our latest News page")
 	url = "https://hacker-news.firebaseio.com/v0/topstories.json"
 	payload = "{}"
 	response = requests.request("GET", url, data=payload)

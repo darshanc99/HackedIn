@@ -1,8 +1,9 @@
+#Import Dependencies
 from django.contrib.auth.models import User
 from django.core.validators import MinValueValidator
 from django.db import models
 
-
+#Class for JobOffer Table
 class JobOffer(models.Model):
     INDUSTRY_TYPES = (
         ('Accounting', 'Accounting'),
@@ -36,8 +37,7 @@ class JobOffer(models.Model):
     def __str__(self):
         return "{}".format(self.created_date)
 
-
-
+#Class for ApplicationRequirements Table
 class ApplicationRequirements(models.Model):
     job_offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, blank=True)
     formPicture = models.BooleanField()
@@ -50,7 +50,7 @@ class ApplicationRequirements(models.Model):
     formExperience = models.BooleanField()
     formHobby = models.BooleanField()
 
-
+#Class for JobApplication Table
 class JobApplication(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     job_offer = models.ForeignKey(JobOffer, on_delete=models.CASCADE, blank=True)
@@ -83,12 +83,13 @@ class JobApplication(models.Model):
     hobby = models.CharField(max_length=1000, blank=True, null=True)
     created_date = models.DateTimeField(auto_now=True)
 
-
+#Class for Converstaion Table
 class Conversation(models.Model):
     user_one = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='user_one')
     user_two = models.ForeignKey(User, on_delete=models.CASCADE, blank=True, related_name='user_two')
     title = models.CharField(max_length=38)
 
+#Class for Message Table
 class Message(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE, blank=True)
     conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE, blank=True)

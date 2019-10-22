@@ -1,8 +1,11 @@
+#Import Dependencies
 from django.conf.urls import url
 from . import views
 
+#App Name
 app_name = 'jobs'
 
+#URL Patterns
 urlpatterns = [
     #/jobs/
     url(r'^$', views.index, name='index'),

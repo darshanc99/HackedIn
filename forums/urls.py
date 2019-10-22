@@ -1,7 +1,8 @@
+#Import Dependencies
 from django.urls import path
-from django.conf.urls import url,include
 from . import views
 
+#URL Patterns
 urlpatterns = [
 	path('',views.BoardListView.as_view(),name='home'),
     path('boards/<int:pk>/', views.TopicListView.as_view(), name='board_topics'),

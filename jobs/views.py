@@ -5,11 +5,10 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from django.contrib.auth.decorators import login_required
 
-
+#Views
 # Home Page
 def index(request):
     return render(request, 'jobs/index.html', {})
-
 
 #Post Message
 @login_required
@@ -135,7 +134,7 @@ def search(request):
     return render(request, 'jobs/offers.html', context)
 
 
-# USer Profile
+# User Profile
 @login_required
 def user_profile(request, username):
     user = User.objects.get(username=username)

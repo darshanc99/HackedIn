@@ -11,6 +11,7 @@ from .views import (
 	UserPostListView
 	)
 
+#URL Patterns
 urlpatterns = [
 	#/community/
 	path('',PostListView.as_view(),name='network'),

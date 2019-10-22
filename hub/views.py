@@ -3,7 +3,7 @@ from django.shortcuts import render,get_object_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from django.http import HttpResponse
+#from django.http import HttpResponse
 from django.template import loader
 from .models import Accomplishment
 from django.views.generic import (ListView,
@@ -14,13 +14,17 @@ from django.views.generic import (ListView,
 	)
 import requests
 
-@login_required
+#Views
+
+#Community
+"""@login_required
 def network(request):
 	context = {
 	'accomplishments' : Accomplishment.objects.all()
 	}
-	return render(request,'hub/network.html',context)
+	return render(request,'hub/network.html',context)"""
 
+#Community
 class PostListView(LoginRequiredMixin,ListView):
 	model = Accomplishment
 	template_name = 'hub/network.html' #<app>/<model>_<viewtype>.html
@@ -28,6 +32,7 @@ class PostListView(LoginRequiredMixin,ListView):
 	ordering = ['-date_posted']
 	paginate_by = 4
 
+#User Specific List of Posts
 class UserPostListView(LoginRequiredMixin,ListView):
 	model = Accomplishment
 	template_name = 'hub/user_posts.html' #<app>/<model>_<viewtype>.html
@@ -38,10 +43,12 @@ class UserPostListView(LoginRequiredMixin,ListView):
 		user = get_object_or_404(User,username=self.kwargs.get('username'))
 		return Accomplishment.objects.filter(author=user).order_by('-date_posted')
 
+#Details of a selected post
 class PostDetailView(LoginRequiredMixin,DetailView):
 	model = Accomplishment
 	template_name = 'hub/networkpost.html'
 
+#Create a new Post
 class PostCreateView(LoginRequiredMixin,CreateView):
 	model = Accomplishment
 	fields = ['title','content']
@@ -51,6 +58,7 @@ class PostCreateView(LoginRequiredMixin,CreateView):
 
 	template_name = 'hub/post_form.html'
 
+#Update the Post
 class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 	model = Accomplishment
 	fields = ['title','content']
@@ -65,6 +73,7 @@ class PostUpdateView(LoginRequiredMixin,UserPassesTestMixin,UpdateView):
 
 	template_name = 'hub/post_form.html'
 
+#Delete a Post
 class PostDeleteView(LoginRequiredMixin,UserPassesTestMixin,DeleteView):
 	model = Accomplishment
 	success_url = '/community'

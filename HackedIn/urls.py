@@ -7,6 +7,8 @@ from users import views as user_views
 from django.conf.urls.static import static
 from users import views as user_views
 from django.conf import settings
+
+#URL Patterns
 urlpatterns = [
 	#/admin/
     path('admin/', admin.site.urls),

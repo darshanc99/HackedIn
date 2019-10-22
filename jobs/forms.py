@@ -1,12 +1,12 @@
+#Import Dependencies
 from django import forms
 from django.forms import Textarea
 from django.utils.translation import gettext as _
 from .models import *
 
+#Forms
 
-# w tym pliku sa formularze gdzie dodalem jak maja wygladac, labele i hinty
-
-
+#JobOfferForm
 class JobOfferForm(forms.ModelForm):
 
     class Meta:
@@ -44,8 +44,7 @@ class JobOfferForm(forms.ModelForm):
             'location': _('city, street (search sensitive)'),
         }
 
-
-
+#ApplicationForm
 class ApplicationForm(forms.ModelForm):
 
     class Meta:
@@ -65,8 +64,7 @@ class ApplicationForm(forms.ModelForm):
             'formHobby': _('Hobby of Candidate.'),
         }
 
-
-
+#JobApply Form
 class JobApplyForm(forms.ModelForm):
 
     class Meta:
@@ -110,15 +108,14 @@ class JobApplyForm(forms.ModelForm):
                 if not value:
                     self.fields['%s' % field].widget = forms.HiddenInput()
 
-
+#Conversation Form
 class ConversationForm(forms.ModelForm):
     class Meta:
         model = Conversation
         fields = ['title']
 
-
+#Message Form
 class MessageForm(forms.ModelForm):
     class Meta:
         model = Message
         fields = ['content']
-

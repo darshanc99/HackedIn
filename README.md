@@ -23,11 +23,11 @@
 
 <h3 > HackedIn as web-app  </h3>
 <br>
-<img src="images./homepage.jpeg" width=700px>
+<img src="images/homepage.jpeg" width=700px>
 
 <br>
 
-<img src=".images/profile.jpeg" width=700px>
+<img src="images/profile.jpeg" width=700px>
 
 <br>
 

@@ -6,8 +6,6 @@
 [![made-with-django](https://img.shields.io/badge/Made%20with-Django-1f425f.svg)](https://www.djangoproject.com/)
 
 </div>
-------------------------------------------
-
 # HackedIn
 ## Motivation: 
 To create a one stop platform for programmers where they can interact, stay updated and make the programmer community grow together.

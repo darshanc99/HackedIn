@@ -6,7 +6,7 @@
 [![made-with-django](https://img.shields.io/badge/Made%20with-Django-1f425f.svg)](https://www.djangoproject.com/)
 
 </div>
-
+------------------------------------------
 
 # HackedIn
 ## Motivation: 
@@ -20,7 +20,7 @@ To create a one stop platform for programmers where they can interact, stay upda
 * A github dashboard for your account.
 * Includes mobile view.
 
--------
+------------------------------------------
 
 <div align="center">
 
@@ -48,15 +48,21 @@ To create a one stop platform for programmers where they can interact, stay upda
 <br>
 
 </div>
+------------------------------------------
+## Techstack used:
+- Frontend: HTML,CSS,JS, Bootstrap4
+- Backend: Python
+- Framework: Django
+- Dependencies: HackerNews API and Github API
 
-
+------------------------------------------
 
 ### Admin Panel
 **username** : hackedin<br/>
 **password** : 123456
 
 
-------
+------------------------------------------
 ### Installation:
 - Windows User:<br/>
 -- python 3.7+<br/>

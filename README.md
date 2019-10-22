@@ -7,8 +7,9 @@
 
 </div>
 
-
 # HackedIn
+## Motivation: 
+To create a one stop platform for programmers where they can interact, stay updated and make the programmer community grow together.
 #### Features:
 * Keeps you updated with the latest tech news.
 * Helps you find employees/project collaborators/interns for your projects.
@@ -16,14 +17,52 @@
 * A discussion forum that helps you solve your queries.
 * A community dashboard that lets you know what the programming community is upto.
 * A github dashboard for your account.
+* Includes mobile view.
 
--------
+------------------------------------------
+
+<div align="center">
+
+<h3 > HackedIn as web-app  </h3>
+<br>
+<img src="images/homepage.jpeg" width=700px>
+
+<br>
+
+<img src="images/profile.jpeg" width=700px>
+
+<br>
+
+<img src="images/forums.jpeg" width=700px>
+
+<br>
+
+<img src="images/community.jpeg" width=700px>
+
+<br>
+
+<br>
+<img src="images/news.jpeg" width=700px>
+
+<br>
+
+</div>
+
+------------------------------------------
+## Techstack used:
+- Frontend: HTML,CSS,JS, Bootstrap4
+- Backend: Python
+- Framework: Django
+- Dependencies: HackerNews API and Github API
+
+------------------------------------------
+
 ### Admin Panel
 **username** : hackedin<br/>
 **password** : 123456
 
 
-------
+------------------------------------------
 ### Installation:
 - Windows User:<br/>
 -- python 3.7+<br/>

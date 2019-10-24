@@ -93,3 +93,15 @@ To create a one stop platform for programmers where they can interact, stay upda
 
 ### To Do:
 * [ ] Update the installation list in the README.md file
+
+------------------------------------------
+
+### Note:
+- This project was created for our `Web Technology Lab`
+
+------------------------------------------
+
+### Contributors
+
+- [@darshanc99](https://github.com/darshanc99)
+- [@rohiiit](https://github.com/rohiiit)

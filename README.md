@@ -14,6 +14,7 @@ To create a one stop platform for programmers where they can interact, stay upda
 * Keeps you updated with the latest tech news.
 * Helps you find employees/project collaborators/interns for your projects.
 * Helps you land up on jobs/internships.
+* Messaging feature for Employer-Employee.
 * A discussion forum that helps you solve your queries.
 * A community dashboard that lets you know what the programming community is upto.
 * A github dashboard for your account.

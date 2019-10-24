@@ -11,7 +11,7 @@
 ## Motivation: 
 To create a one stop platform for programmers where they can interact, stay updated and make the programmer community grow together.
 #### Features:
-* Keeps you updated with the latest tech news.
+* Keeps you updated with real time fetching of the latest tech news.
 * Helps you find employees/project collaborators/interns for your projects.
 * Helps you land up on jobs/internships.
 * Messaging feature for Employer-Employee.

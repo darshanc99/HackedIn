@@ -73,15 +73,15 @@ To create a one stop platform for programmers where they can interact, stay upda
 
 ------------------------------------------
 ### To run the project:
-- Go to the directory in the terminal and run as:
--- **Windows User:** `python manage.py runserver`
--- **Ubuntu User:** `python3 manage.py runserver`
-- The project is running on `port:8000`
+* Go to the directory in the terminal and run as:
+	* **Windows User:** `python manage.py runserver`
+	* **Ubuntu User:** `python3 manage.py runserver`
+* The project is running on `port:8000`
 
 ##### To access the Admin Panel:
-- Open the browser and go the address: `localhost:8000/admin`
--- **username** : hackedin
--- **password** : 123456
+* Open the browser and go the address: `localhost:8000/admin`
+	* **username** : hackedin
+	* **password** : 123456
 
 ------------------------------------------
 

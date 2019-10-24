@@ -107,7 +107,4 @@ To create a one stop platform for programmers where they can interact, stay upda
 
 ------------------------------------------
 
-### Contributors
-
-- [@darshanc99](https://github.com/darshanc99)
-- [@rohiiit](https://github.com/rohiiit)
+##### Made with :heart: by [@darshanc99](https://github.com/darshanc99) and [@rohiiit](https://github.com/rohiiit)

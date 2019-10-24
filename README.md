@@ -21,6 +21,21 @@ To create a one stop platform for programmers where they can interact, stay upda
 * Includes mobile view.
 
 ------------------------------------------
+#### Future Developments:
+* Users be able to send and accept connection requests with the other members of the community.
+
+------------------------------------------
+
+#### This project still has scope of development, so you can also contribute to this Project as follows:
+* [Fork](https://github.com/darshanc99/HackedIn) this Repository.
+* Clone your Fork on a different branch:
+	* `git clone -b <name-of-branch> https://github.com/darshanc99/HackedIn.git`
+* After adding any feature:
+	* Goto your fork and create a pull request.
+	* We will test your modifications and merge changes.
+	
+------------------------------------------
+
 
 <div align="center">
 
@@ -62,8 +77,8 @@ To create a one stop platform for programmers where they can interact, stay upda
 **username** : hackedin<br/>
 **password** : 123456
 
-
 ------------------------------------------
+
 ### Installation:
 - Windows User:<br/>
 -- python 3.7+<br/>
@@ -73,3 +88,8 @@ To create a one stop platform for programmers where they can interact, stay upda
 -- pillow==6.1.0 ->```pip install pillow```<br/>
 - Linux User:<br/>
 -- ```pip3 install -r requirements.txt```
+
+------------------------------------------
+
+### To Do:
+* [] Update the installation list in the README.md file
